@@ -1,21 +1,23 @@
 'use strict'
 
+
+
 var express = require('express');
-var taskController = require('../controllers/taskController');
+var TaskController = require('../controllers/taskController');
+
+
 var api = express.Router();
+var md_auth = require('../middlewares/authenticated');//cargar el middleware de autenticacion
+var multipart = require('connect-multiparty');//permite subir ficheros
 
-var md_auth = require('../middlewares/authenticated');
-var multipart = require('connect-multiparty');
-var md_upload = multipart({uploadDir : './uploads/artists'});
+// api.get('/probando-controlador',md_auth.ensureAuth, TaskController.pruebas);
 
-//rutas de express
-api.get('/task',md_auth.ensureAuth,taskController.getArtist);
+api.post('/tasks', TaskController.saveTask);
 
-api.post('/task',md_auth.ensureAuth,taskController.saveArtist);
+// api.post('/login', TaskController.loginUser);s
 
-api.put('/task/:id',md_auth.ensureAuth,taskController.updateArtist);
+// api.put("/update-user/:id",md_auth.ensureAuth,TaskController.updateUser);
 
-api.delete('/task/:id',md_auth.ensureAuth,taskController.deleteArtist);
 
-//exporta las rutas
+
 module.exports = api;

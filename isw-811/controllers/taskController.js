@@ -7,14 +7,14 @@ var taskModel = require('../models/taskModel');
 //Metodo para guardar una tarea a la base de datos de mongo..
  
     function saveTask(req, res) {
-        var task = new taskModel();
+        var task = new taskModel(); //se genera s tareas
         var params = req.body;
         console.log(params);
         task.title = params.title;
         task.details = params.details;
         console.log(task);
     
-        task.save((err, taskStored) => {
+        task.save((err, taskStored) => { //se mandan los parametros
             if (err) {
                 res.status(500).send({
                     message: 'Error al guardar la tarea'
